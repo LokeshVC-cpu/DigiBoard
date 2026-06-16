@@ -1,0 +1,99 @@
+/* ============================================
+   DigiBoard — Dashboard Styles
+   ============================================ */
+
+.dashboard { animation: fadeInUp 0.4s ease; }
+
+.page-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 2rem; gap: 1rem; flex-wrap: wrap;
+}
+.page-header h2 { margin-bottom: 0.25rem; }
+.page-header p { font-size: var(--text-sm); color: var(--text-tertiary); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.65rem 1.25rem; background: var(--primary); color: white;
+  border: none; border-radius: var(--radius-md); font-weight: 600;
+  font-size: var(--text-sm); cursor: pointer; transition: all var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(99,102,241,0.35); white-space: nowrap;
+}
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(99,102,241,0.45); }
+
+/* Stats Grid */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 1.25rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: all var(--transition-base); animation: fadeInUp 0.5s ease both;
+}
+.stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.stat-icon {
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.stat-info { display: flex; flex-direction: column; }
+.stat-value { font-size: var(--text-2xl); font-weight: 800; color: var(--text-primary); line-height: 1; }
+.stat-label { font-size: var(--text-xs); color: var(--text-tertiary); font-weight: 500; margin-top: 0.2rem; }
+
+.skeleton-card { height: 80px; background: linear-gradient(90deg, var(--bg-surface-alt) 25%, var(--border-color) 50%, var(--bg-surface-alt) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+
+/* Charts */
+.charts-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.chart-card {
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+}
+.chart-card h4 { font-size: var(--text-base); margin-bottom: 1rem; }
+.chart-container { height: 280px; position: relative; }
+
+/* Activity Timeline */
+.activity-card {
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+}
+.activity-card h4 { font-size: var(--text-base); margin-bottom: 1.25rem; }
+
+.activity-timeline { position: relative; padding-left: 2rem; }
+.activity-timeline::before {
+  content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px;
+  width: 2px; background: var(--border-color);
+}
+.timeline-item {
+  position: relative; padding-bottom: 1.25rem;
+  transition: background var(--transition-fast); padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md); margin-bottom: 0.25rem;
+}
+.timeline-item:hover { background: var(--bg-surface-alt); }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute; left: calc(-2rem + 1px); top: 14px;
+  width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--bg-surface);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+}
+.timeline-content { flex: 1; min-width: 0; }
+.timeline-title { font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.5; }
+.timeline-title strong { color: var(--text-primary); }
+.timeline-notice-title { color: var(--primary); font-weight: 500; }
+.timeline-meta { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.35rem; }
+.timeline-badge {
+  font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.timeline-views { display: flex; align-items: center; gap: 0.2rem; font-size: var(--text-xs); color: var(--text-tertiary); }
+.timeline-time { font-size: var(--text-xs); color: var(--text-tertiary); }
+
+.page-enter { animation: fadeInUp 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid { grid-template-columns: 1fr; }
+  .page-header { flex-direction: column; }
+}

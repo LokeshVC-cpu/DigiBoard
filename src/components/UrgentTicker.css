@@ -1,0 +1,100 @@
+/* ============================================
+   DigiBoard — Urgent Notice Ticker
+   ============================================ */
+
+.urgent-ticker {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #dc2626, #ef4444, #dc2626);
+  color: white;
+  overflow: hidden;
+  height: 36px;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 12px rgba(239, 68, 68, 0.3);
+  animation: fadeInDown 0.4s ease;
+}
+
+.ticker-label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.85rem;
+  background: rgba(0, 0, 0, 0.25);
+  height: 100%;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent);
+}
+
+.ticker-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: tickerScroll 25s linear infinite;
+  will-change: transform;
+}
+
+.ticker-content:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ticker-item:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.ticker-dot {
+  margin: 0 1rem;
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .urgent-ticker {
+    border-radius: var(--radius-sm);
+    height: 32px;
+  }
+  .ticker-label {
+    padding: 0 0.5rem;
+    font-size: 0.55rem;
+  }
+  .ticker-item {
+    font-size: var(--text-xs);
+  }
+}

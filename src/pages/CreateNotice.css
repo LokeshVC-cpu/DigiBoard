@@ -1,0 +1,119 @@
+/* ============================================
+   DigiBoard — Create/Edit Notice Styles
+   ============================================ */
+.create-notice { animation: fadeInUp 0.4s ease; }
+
+.back-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  color: var(--text-secondary); cursor: pointer; transition: all var(--transition-fast);
+}
+.back-btn:hover { background: var(--bg-surface-alt); color: var(--text-primary); }
+
+.cn-actions { display: flex; gap: 0.5rem; }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.65rem 1.25rem; background: var(--bg-surface);
+  border: 1.5px solid var(--border-color); border-radius: var(--radius-md);
+  font-weight: 600; font-size: var(--text-sm); color: var(--text-secondary);
+  cursor: pointer; transition: all var(--transition-fast);
+}
+.btn-secondary:hover { border-color: var(--text-tertiary); color: var(--text-primary); }
+
+/* Layout */
+.cn-layout { display: grid; grid-template-columns: 1fr 300px; gap: 1.5rem; }
+
+/* Editor */
+.cn-editor-section {
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.cn-title-input input {
+  width: 100%; padding: 1.25rem 1.5rem; border: none; border-bottom: 1px solid var(--border-color);
+  font-size: var(--text-xl); font-weight: 700; background: transparent;
+  color: var(--text-primary); outline: none;
+}
+.cn-title-input input::placeholder { color: var(--text-tertiary); }
+
+.cn-toolbar {
+  display: flex; align-items: center; gap: 2px; padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border-color); flex-wrap: wrap;
+}
+.cn-toolbar button {
+  width: 34px; height: 34px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; color: var(--text-secondary);
+  cursor: pointer; transition: all var(--transition-fast);
+}
+.cn-toolbar button:hover { background: var(--bg-surface-alt); color: var(--text-primary); }
+.toolbar-divider { width: 1px; height: 24px; background: var(--border-color); margin: 0 0.25rem; }
+.preview-toggle {
+  width: auto !important; padding: 0 0.75rem !important; gap: 0.35rem;
+  font-size: var(--text-xs); font-weight: 600;
+}
+.preview-toggle.active { background: var(--primary-bg) !important; color: var(--primary) !important; }
+
+.cn-editor {
+  min-height: 350px; padding: 1.5rem; outline: none;
+  font-size: var(--text-base); line-height: 1.8; color: var(--text-primary);
+}
+.cn-editor:empty::before {
+  content: attr(data-placeholder); color: var(--text-tertiary); pointer-events: none;
+}
+.cn-editor h3 { font-size: var(--text-lg); margin: 0.75rem 0 0.35rem; }
+.cn-editor ul, .cn-editor ol { padding-left: 1.5rem; }
+.cn-editor li { margin-bottom: 0.25rem; }
+.cn-editor ul li { list-style: disc; }
+.cn-editor ol li { list-style: decimal; }
+.cn-editor a { color: var(--primary); text-decoration: underline; }
+
+.cn-preview {
+  min-height: 350px; padding: 1.5rem;
+  background: var(--bg-surface-alt); border-top: 3px solid var(--primary);
+}
+.cn-preview h3 { font-size: var(--text-2xl); margin-bottom: 1rem; color: var(--text-primary); }
+
+/* Settings Panel */
+.cn-settings {
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  align-self: flex-start; position: sticky; top: calc(var(--topbar-height) + 2rem);
+}
+.cn-settings h4 { font-size: var(--text-base); font-weight: 700; margin-bottom: 0.25rem; }
+
+.cn-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.cn-field label { font-size: var(--text-xs); font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.06em; }
+.cn-field select, .cn-field input[type="datetime-local"] {
+  padding: 0.55rem 0.75rem; border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md); background: var(--bg-surface);
+  font-size: var(--text-sm); color: var(--text-primary); outline: none;
+  transition: all var(--transition-fast);
+}
+.cn-field select:focus, .cn-field input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-bg); }
+
+.priority-picker { display: flex; gap: 0.35rem; }
+.priority-option {
+  flex: 1; padding: 0.45rem; text-align: center; font-size: var(--text-xs);
+  font-weight: 700; border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md); background: var(--bg-surface);
+  color: var(--text-secondary); cursor: pointer; transition: all var(--transition-fast);
+}
+.priority-option:hover { border-color: var(--text-tertiary); }
+
+.cn-checkbox {
+  display: flex; align-items: center; gap: 0.5rem; cursor: pointer;
+  font-size: var(--text-sm) !important; color: var(--text-secondary) !important;
+  text-transform: none !important; letter-spacing: normal !important;
+}
+.cn-checkbox input[type="checkbox"] {
+  width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .cn-layout { grid-template-columns: 1fr; }
+  .cn-settings { position: static; }
+  .cn-actions { flex-direction: column; }
+  .page-header { flex-direction: column; gap: 1rem; }
+}
