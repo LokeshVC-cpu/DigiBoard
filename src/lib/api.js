@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://digiboard-7v13.onrender.com/api';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('digiboard_token');
