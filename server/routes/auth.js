@@ -20,9 +20,8 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
     
-    // Update last login
-    user.lastLogin = new Date();
-    await user.save();
+    // Update lastLogin without triggering full document validation
+    await User.updateOne({ id: user.id }, { $set: { lastLogin: new Date() } });
 
     res.json({ token, user });
   } catch (err) {
