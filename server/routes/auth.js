@@ -32,7 +32,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password, role, department, schoolId } = req.body;
+    const { name, email, password, role, department, schoolId, dob, aadhaar } = req.body;
     
     const existing = await User.findOne({ email: email.toLowerCase().trim() });
     if (existing) return res.status(400).json({ message: 'Email already exists' });
@@ -41,7 +41,7 @@ router.post('/signup', async (req, res) => {
     const id = `usr_${Date.now()}`;
     
     const user = new User({
-      id, name, email: email.toLowerCase().trim(), password: hashed, role, department, schoolId
+      id, name, email: email.toLowerCase().trim(), password: hashed, role, department, schoolId, dob, aadhaar
     });
     await user.save();
 

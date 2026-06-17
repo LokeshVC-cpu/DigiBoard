@@ -38,17 +38,17 @@ async function seedDatabase() {
     ];
 
     const users = [
-      { id: 'usr_admin', name: 'DEO Officer', email: 'admin@school.gov.in', password: adminPw, role: 'admin', department: 'ALL', schoolId: 'ALL' },
-      
-      { id: 'usr_t_pat1', name: 'Lakshmi Teacher', email: 'teacher@school.gov.in', password: teacherPw, role: 'faculty', department: 'Science', schoolId: 'sch_patamata' },
-      { id: 'usr_t_pat2', name: 'Suresh Sir', email: 'suresh@ghs-patamata.ap.gov.in', password: teacherPw, role: 'faculty', department: 'Mathematics', schoolId: 'sch_patamata' },
-      { id: 'usr_s_pat1', name: 'Ravi Kumar', email: 'student@school.gov.in', password: studentPw, role: 'student', department: 'Class 10', schoolId: 'sch_patamata' },
-      
-      { id: 'usr_t_gnv1', name: 'Venkat Master', email: 'venkat@zphs-gannavaram.ap.gov.in', password: teacherPw, role: 'faculty', department: 'Science', schoolId: 'sch_gannavaram' },
-      { id: 'usr_s_gnv1', name: 'Karthik R', email: 'karthik@zphs-gannavaram.ap.gov.in', password: studentPw, role: 'student', department: 'Class 10', schoolId: 'sch_gannavaram' },
-      
-      { id: 'usr_t_gdv1', name: 'Padma Madam', email: 'padma@zphs-gudivada.ap.gov.in', password: teacherPw, role: 'faculty', department: 'English', schoolId: 'sch_gudivada' },
-      { id: 'usr_s_gdv1', name: 'Deepa S', email: 'deepa@zphs-gudivada.ap.gov.in', password: studentPw, role: 'student', department: 'Class 8', schoolId: 'sch_gudivada' },
+      // Admin
+      { id: 'usr_admin1', name: 'Ravi Kumar', email: 'admin@ap.gov.in', password: await bcrypt.hash('admin123', 10), role: 'admin', department: 'Administration', schoolId: 'ALL', dob: '1980-01-01', aadhaar: '123412341234' },
+      // Faculty
+      { id: 'usr_fac1', name: 'Sita Ram', email: 'sita.ram@school.gov.in', password: await bcrypt.hash('faculty123', 10), role: 'faculty', department: 'Mathematics', schoolId: 'sch_patamata', dob: '1985-05-15', aadhaar: '111122223333' },
+      { id: 'usr_fac2', name: 'Venkat Rao', email: 'venkat.rao@school.gov.in', password: await bcrypt.hash('faculty123', 10), role: 'faculty', department: 'Science', schoolId: 'sch_gannavaram', dob: '1982-11-20', aadhaar: '444455556666' },
+      { id: 'usr_fac3', name: 'Lakshmi Devi', email: 'lakshmi.devi@school.gov.in', password: await bcrypt.hash('faculty123', 10), role: 'faculty', department: 'Social Studies', schoolId: 'sch_gudivada', dob: '1990-03-10', aadhaar: '777788889999' },
+      // Students
+      { id: 'usr_stu1', name: 'Karthik', email: 'karthik@student.in', password: await bcrypt.hash('student123', 10), role: 'student', department: 'Class 10', schoolId: 'sch_patamata', dob: '2010-06-01', aadhaar: '000011112222' },
+      { id: 'usr_stu2', name: 'Priya', email: 'priya@student.in', password: await bcrypt.hash('student123', 10), role: 'student', department: 'Class 9', schoolId: 'sch_patamata', dob: '2011-08-15', aadhaar: '333344445555' },
+      { id: 'usr_stu3', name: 'Arjun', email: 'arjun@student.in', password: await bcrypt.hash('student123', 10), role: 'student', department: 'Class 10', schoolId: 'sch_gannavaram', dob: '2010-02-28', aadhaar: '666677778888' },
+      { id: 'usr_stu4', name: 'Divya', email: 'divya@student.in', password: await bcrypt.hash('student123', 10), role: 'student', department: 'Class 8', schoolId: 'sch_gudivada', dob: '2012-12-12', aadhaar: '999900001111' },
     ];
 
     const notices = [

@@ -15,6 +15,7 @@ export default function Signup() {
 
   const [form, setForm] = useState({
     name: '', email: '', password: '', confirmPassword: '',
+    dob: '', aadhaar: '', isTeacher: false,
     role: 'student', department: 'Class 10', schoolId: 'sch_patamata',
   });
 
@@ -23,6 +24,8 @@ export default function Signup() {
 
   const validateStep1 = () => {
     if (!form.name.trim()) return 'Please enter your name';
+    if (!form.dob.trim()) return 'Please enter your Date of Birth';
+    if (!form.aadhaar.trim()) return 'Please enter your Aadhaar Number';
     if (!validateEmail(form.email)) return 'Please enter a valid email';
     if (form.password.length < 6) return 'Password must be at least 6 characters';
     if (form.password !== form.confirmPassword) return 'Passwords do not match';
@@ -94,6 +97,16 @@ export default function Signup() {
                     value={form.email} onChange={e => updateForm('email', e.target.value)} />
                 </div>
                 <div className="form-group">
+                  <label className="form-label">Date of Birth</label>
+                  <input type="date" className="form-input" 
+                    value={form.dob} onChange={e => updateForm('dob', e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label className="form-label">Aadhaar Number</label>
+                  <input type="text" className="form-input" placeholder="XXXX XXXX XXXX"
+                    value={form.aadhaar} onChange={e => updateForm('aadhaar', e.target.value)} maxLength={14} />
+                </div>
+                <div className="form-group">
                   <label className="form-label">Password</label>
                   <div className="password-wrapper">
                     <input type={showPw ? 'text' : 'password'} className="form-input" placeholder="Min 6 characters"
@@ -131,16 +144,43 @@ export default function Signup() {
 
             {step === 2 && (
               <>
-                <div className="form-group" style={{ display: 'none' }}>
-                  <input type="hidden" value={form.role} />
+                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                  <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+                    <input type="checkbox" style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                      checked={form.isTeacher}
+                      onChange={e => {
+                        const isT = e.target.checked;
+                        setForm(prev => ({ 
+                          ...prev, 
+                          isTeacher: isT, 
+                          role: isT ? 'faculty' : 'student',
+                          department: isT ? 'Mathematics' : 'Class 10'
+                        }));
+                      }} 
+                    />
+                    I am a teacher
+                  </label>
                 </div>
+
                 <div className="form-group">
-                  <label className="form-label">Class / Subject</label>
-                  <select className="form-select" value={form.department} onChange={e => updateForm('department', e.target.value)}>
-                    {DEPARTMENTS.filter(d => d !== 'ALL').map(d => (
-                      <option key={d} value={d}>{d}</option>
-                    ))}
-                  </select>
+                  <label className="form-label">{form.isTeacher ? 'Subject' : 'Class'}</label>
+                  {form.isTeacher ? (
+                    <select className="form-select" value={form.department} onChange={e => updateForm('department', e.target.value)}>
+                      <option value="Mathematics">Mathematics</option>
+                      <option value="Science">Science</option>
+                      <option value="Social Studies">Social Studies</option>
+                      <option value="English">English</option>
+                      <option value="Telugu">Telugu</option>
+                      <option value="Hindi">Hindi</option>
+                      <option value="Physical Education">Physical Education</option>
+                    </select>
+                  ) : (
+                    <select className="form-select" value={form.department} onChange={e => updateForm('department', e.target.value)}>
+                      {DEPARTMENTS.filter(d => d !== 'ALL').map(d => (
+                        <option key={d} value={d}>{d}</option>
+                      ))}
+                    </select>
+                  )}
                 </div>
                 <div className="form-group">
                   <label className="form-label">School</label>
