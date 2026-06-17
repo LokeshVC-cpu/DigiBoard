@@ -103,7 +103,10 @@ export async function updateUserRoleApi(userId, role) {
     headers: getAuthHeaders(),
     body: JSON.stringify({ role })
   });
-  if (!res.ok) throw new Error('Failed to update role');
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to update role');
+  }
   return res.json();
 }
 

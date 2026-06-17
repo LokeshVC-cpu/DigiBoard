@@ -53,7 +53,8 @@ export default function Dashboard() {
       await updateUserRoleApi(userId, role);
       setUsers(users.map(u => u.id === userId ? { ...u, role, isPendingFaculty: false } : u));
     } catch (err) {
-      alert('Failed to update role');
+      console.error(err);
+      alert('Failed to update role: ' + err.message);
     }
   }
 

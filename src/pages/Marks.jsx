@@ -15,6 +15,8 @@ export default function Marks() {
 
   // Filters
   const [filterDept, setFilterDept] = useState(user?.role === 'student' ? user.department : 'ALL');
+  const [filterSchool, setFilterSchool] = useState('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
   
   // Form State (For Admin/Faculty)
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,7 +38,11 @@ export default function Marks() {
     try {
       setLoading(true);
       const filters = {};
-      if (effectiveSchoolId) filters.schoolId = effectiveSchoolId;
+      
+      // Determine school filter: if sidebar is ALL, use the local filterSchool. Otherwise, lock it to sidebar's school.
+      const querySchoolId = effectiveSchoolId === 'ALL' ? (filterSchool === 'ALL' ? null : filterSchool) : effectiveSchoolId;
+      if (querySchoolId) filters.schoolId = querySchoolId;
+      
       if (filterDept !== 'ALL' && user?.role !== 'student') filters.department = filterDept;
 
       const [marksData, usersData] = await Promise.all([
@@ -224,10 +230,33 @@ export default function Marks() {
       )}
 
       {/* Toolbar & Filters */}
-      <div className="marks-toolbar">
-        <div className="marks-filters">
+      <div className="marks-toolbar" style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', gap: '12px', flex: 1 }}>
+          <input 
+            type="text" 
+            placeholder="Search student by name..." 
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            style={{ minWidth: '200px', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'var(--bg-card)', color: 'var(--text-primary)' }}
+          />
+        </div>
+        <div className="marks-filters" style={{ display: 'flex', gap: '12px' }}>
+          {user?.role === 'admin' && effectiveSchoolId === 'ALL' && (
+            <select 
+              value={filterSchool} 
+              onChange={e => setFilterSchool(e.target.value)}
+              style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'var(--bg-card)', color: 'var(--text-primary)' }}
+            >
+              <option value="ALL">All Schools</option>
+              {SCHOOLS.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+          )}
           {user?.role !== 'student' && (
-            <select value={filterDept} onChange={(e) => setFilterDept(e.target.value)}>
+            <select 
+              value={filterDept} 
+              onChange={(e) => setFilterDept(e.target.value)}
+              style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'var(--bg-card)', color: 'var(--text-primary)' }}
+            >
               {DEPARTMENTS.map(d => <option key={d} value={d}>{d === 'ALL' ? 'All Classes' : d}</option>)}
             </select>
           )}
@@ -256,7 +285,14 @@ export default function Marks() {
                 </td>
               </tr>
             ) : (
-              marks.map(mark => {
+              marks
+              .filter(mark => {
+                // Apply frontend search query
+                if (!searchQuery) return true;
+                const studentName = getStudentName(mark.studentId).toLowerCase();
+                return studentName.includes(searchQuery.toLowerCase());
+              })
+              .map(mark => {
                 const percentage = ((mark.marksObtained / mark.totalMarks) * 100).toFixed(1);
                 const isPass = percentage >= 35; // Assuming 35% is pass
                 
