@@ -48,7 +48,6 @@ export default function Dashboard() {
   }
 
   async function promoteUser(userId, role) {
-    if (!confirm(`Are you sure you want to approve this user as a teacher?`)) return;
     try {
       await updateUserRoleApi(userId, role);
       setUsers(users.map(u => u.id === userId ? { ...u, role, isPendingFaculty: false } : u));
