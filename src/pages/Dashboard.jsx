@@ -204,7 +204,7 @@ export default function Dashboard() {
         <div className="activity-card" style={{ marginTop: '24px' }}>
           <h4>User Management (Admin Only)</h4>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-            Promote student accounts to teacher accounts so they can post notices.
+            Approve pending teacher accounts so they can post notices and assign marks.
           </p>
           <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
             <input 
@@ -256,12 +256,12 @@ export default function Dashboard() {
                       )}
                     </td>
                     <td style={{ padding: '12px 8px' }}>
-                      {u.role === 'student' && (
+                      {u.isPendingFaculty && (
                         <button 
                           onClick={() => promoteUser(u.id, 'faculty')}
-                          style={{ display: 'flex', alignItems: 'center', gap: '6px', background: u.isPendingFaculty ? 'var(--warning)' : 'var(--primary)', color: u.isPendingFaculty ? '#000' : 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--warning)', color: '#000', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
                         >
-                          <Shield size={14} /> {u.isPendingFaculty ? 'Approve Teacher' : 'Promote to Teacher'}
+                          <Shield size={14} /> Approve Teacher
                         </button>
                       )}
                     </td>
