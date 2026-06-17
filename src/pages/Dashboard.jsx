@@ -249,14 +249,19 @@ export default function Dashboard() {
                       <span className="timeline-badge" style={{ background: u.role === 'admin' ? '#fecdd3' : u.role === 'faculty' ? '#dbeafe' : '#f1f5f9', color: u.role === 'admin' ? '#e11d48' : u.role === 'faculty' ? '#2563eb' : '#475569' }}>
                         {u.role}
                       </span>
+                      {u.isPendingFaculty && (
+                        <span className="timeline-badge" style={{ background: '#fef3c7', color: '#d97706', marginLeft: '6px', fontSize: '0.7rem' }}>
+                          Pending Teacher
+                        </span>
+                      )}
                     </td>
                     <td style={{ padding: '12px 8px' }}>
                       {u.role === 'student' && (
                         <button 
                           onClick={() => promoteUser(u.id, 'faculty')}
-                          style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--primary)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px', background: u.isPendingFaculty ? 'var(--warning)' : 'var(--primary)', color: u.isPendingFaculty ? '#000' : 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
                         >
-                          <Shield size={14} /> Promote to Teacher
+                          <Shield size={14} /> {u.isPendingFaculty ? 'Approve Teacher' : 'Promote to Teacher'}
                         </button>
                       )}
                     </td>

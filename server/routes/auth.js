@@ -40,8 +40,12 @@ router.post('/signup', async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
     const id = `usr_${Date.now()}`;
     
+    // Intercept faculty signups: force them to be students until admin approves
+    const actualRole = role === 'faculty' ? 'student' : role;
+    const isPendingFaculty = role === 'faculty';
+
     const user = new User({
-      id, name, email: email.toLowerCase().trim(), password: hashed, role, department, schoolId, dob, aadhaar
+      id, name, email: email.toLowerCase().trim(), password: hashed, role: actualRole, department, schoolId, dob, aadhaar, isPendingFaculty
     });
     await user.save();
 
@@ -106,7 +110,11 @@ router.put('/users/:id/role', async (req, res) => {
     // Check if requester is admin
     if (decoded.role !== 'admin') return res.status(403).json({ message: 'Forbidden: Admins only' });
 
-    const user = await User.findOneAndUpdate({ id: req.params.id }, { role: req.body.role }, { new: true }).select('-password');
+    const user = await User.findOneAndUpdate(
+      { id: req.params.id }, 
+      { role: req.body.role, isPendingFaculty: false }, 
+      { new: true }
+    ).select('-password');
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   schoolId: { type: String, required: true },
   dob: { type: String, required: true },
   aadhaar: { type: String, required: true },
+  isPendingFaculty: { type: Boolean, default: false },
   avatar: { type: String, default: null },
   lastLogin: { type: Date, default: Date.now }
 }, { timestamps: true });
