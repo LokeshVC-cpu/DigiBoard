@@ -48,10 +48,10 @@ export default function Dashboard() {
   }
 
   async function promoteUser(userId, role) {
-    if (!confirm(`Are you sure you want to promote this student to ${role}?`)) return;
+    if (!confirm(`Are you sure you want to approve this user as a teacher?`)) return;
     try {
       await updateUserRoleApi(userId, role);
-      setUsers(users.map(u => u.id === userId ? { ...u, role } : u));
+      setUsers(users.map(u => u.id === userId ? { ...u, role, isPendingFaculty: false } : u));
     } catch (err) {
       alert('Failed to update role');
     }
