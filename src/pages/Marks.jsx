@@ -21,6 +21,7 @@ export default function Marks() {
   // Form State (For Admin/Faculty)
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
+    schoolId: '',
     studentId: '',
     department: '',
     examType: 'Unit Test 1',
@@ -81,7 +82,7 @@ export default function Marks() {
       } else {
         await createMarkApi({
           studentId: formData.studentId,
-          schoolId: effectiveSchoolId || user.schoolId, // Handle admin all schools case carefully if needed
+          schoolId: user?.role === 'admin' ? formData.schoolId : user.schoolId,
           department: formData.department,
           examType: formData.examType,
           subject: formData.subject,
@@ -126,7 +127,7 @@ export default function Marks() {
   // Filter students for the dropdown based on selected school and department
   const availableStudents = users.filter(u => 
     u.role === 'student' && 
-    (effectiveSchoolId ? u.schoolId === effectiveSchoolId : true) &&
+    (user?.role === 'admin' ? (formData.schoolId ? u.schoolId === formData.schoolId : true) : u.schoolId === user?.schoolId) &&
     (formData.department ? u.department === formData.department : true)
   );
 
@@ -159,6 +160,16 @@ export default function Marks() {
               
               {!editingId && (
                 <>
+                  {user?.role === 'admin' && (
+                    <div className="form-group">
+                      <label className="form-label">School</label>
+                      <select className="form-select" name="schoolId" value={formData.schoolId} onChange={handleInputChange} required>
+                        <option value="">Select School</option>
+                        {SCHOOLS.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                      </select>
+                    </div>
+                  )}
+
                   <div className="form-group">
                     <label className="form-label">Class / Department</label>
                     <select className="form-select" name="department" value={formData.department} onChange={handleInputChange} required>
@@ -169,7 +180,7 @@ export default function Marks() {
 
                   <div className="form-group">
                     <label className="form-label">Student</label>
-                    <select className="form-select" name="studentId" value={formData.studentId} onChange={handleInputChange} required disabled={!formData.department}>
+                    <select className="form-select" name="studentId" value={formData.studentId} onChange={handleInputChange} required disabled={!formData.department || (user?.role === 'admin' && !formData.schoolId)}>
                       <option value="">{formData.department ? 'Select Student' : 'Select Class First'}</option>
                       {availableStudents.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                     </select>
@@ -213,16 +224,13 @@ export default function Marks() {
             </div>
             
             <div className="form-group-row">
-              <button type="submit" className="btn-primary" disabled={isSubmitting || (user.role === 'admin' && !effectiveSchoolId && !editingId)}>
+              <button type="submit" className="btn-primary" disabled={isSubmitting}>
                 <Plus size={18} /> {editingId ? 'Update Marks' : 'Add Marks'}
               </button>
               {editingId && (
                 <button type="button" className="btn-primary" style={{ background: 'var(--bg-surface-alt)', color: 'var(--text-primary)' }} onClick={() => { setEditingId(null); setFormData(prev => ({...prev, studentId: ''})); }}>
                   Cancel
                 </button>
-              )}
-              {user.role === 'admin' && !effectiveSchoolId && !editingId && (
-                <span style={{ fontSize: '0.8rem', color: 'var(--warning)' }}>Please select a specific school from the sidebar to add marks.</span>
               )}
             </div>
           </form>
