@@ -233,6 +233,20 @@ export default function Layout({ children }) {
           {children}
         </main>
       </div>
+
+      {/* Mobile Bottom Tab Bar */}
+      <nav className="mobile-bottom-nav">
+        {filteredNav.slice(0, 5).map(item => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            className={({ isActive }) => `mobile-tab ${isActive ? 'active' : ''}`}
+          >
+            {item.icon}
+            <span>{item.label.split(' ')[0]}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }

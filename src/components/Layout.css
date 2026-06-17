@@ -93,11 +93,12 @@
 .topbar {
   position: fixed; top: 0; right: 0; left: var(--sidebar-width);
   height: var(--topbar-height);
+  padding-top: env(safe-area-inset-top, 0px);
   background: var(--bg-glass-strong); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   z-index: var(--z-sticky);
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 1.5rem; transition: left var(--transition-base);
+  padding-left: 1.5rem; padding-right: 1.5rem; transition: left var(--transition-base);
 }
 .topbar.sidebar-collapsed { left: var(--sidebar-collapsed); }
 
@@ -241,12 +242,12 @@
 .notif-empty p { font-size: var(--text-sm); }
 
 /* ---- Main Content ---- */
-.app-layout { display: flex; min-height: 100vh; }
-.app-main { flex: 1; margin-left: var(--sidebar-width); transition: margin-left var(--transition-base); }
+.app-layout { display: flex; min-height: 100vh; overflow-x: hidden; }
+.app-main { flex: 1; margin-left: var(--sidebar-width); transition: margin-left var(--transition-base); overflow-x: hidden; }
 .app-main.sidebar-collapsed { margin-left: var(--sidebar-collapsed); }
 .app-content {
   padding: 2rem; padding-top: calc(var(--topbar-height) + 2rem);
-  max-width: 1280px;
+  max-width: 1280px; overflow-x: hidden;
 }
 
 /* Mobile sidebar */
@@ -254,6 +255,29 @@
   position: fixed; inset: 0; background: var(--bg-overlay);
   z-index: calc(var(--z-overlay) - 1); animation: fadeIn 0.2s ease;
 }
+
+/* ---- Bottom Tab Bar (Mobile) ---- */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 60px; background: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  z-index: var(--z-sticky);
+  justify-content: space-around; align-items: center;
+  padding: 0 0.25rem;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.mobile-tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 0.35rem 0.5rem; border-radius: var(--radius-md);
+  background: none; border: none; color: var(--text-tertiary);
+  font-size: 0.6rem; font-weight: 600; cursor: pointer;
+  transition: all var(--transition-fast); text-decoration: none;
+  min-width: 52px;
+}
+.mobile-tab.active { color: var(--primary); }
+.mobile-tab svg { width: 22px; height: 22px; }
 
 @media (max-width: 1024px) {
   .sidebar { transform: translateX(-100%); z-index: var(--z-overlay); }
@@ -266,7 +290,48 @@
 }
 
 @media (max-width: 640px) {
-  .topbar-search { min-width: unset; flex: 1; }
+  /* Hide desktop sidebar completely on mobile */
+  .sidebar { display: none !important; }
+  .sidebar-overlay { display: none !important; }
+
+  /* Show bottom tab bar */
+  .mobile-bottom-nav { display: flex; }
+
+  /* Slim topbar */
+  .topbar {
+    left: 0 !important; height: calc(52px + env(safe-area-inset-top, 24px));
+    padding: 0 0.75rem;
+    padding-top: env(safe-area-inset-top, 24px);
+  }
+  .topbar-search { min-width: unset; flex: 1; padding: 0.4rem 0.75rem; }
+  .topbar-search input { font-size: 0.8rem; }
   .topbar-user-info { display: none; }
-  .notification-panel { right: -100px; width: 320px; }
+  .topbar-icon-btn { width: 34px; height: 34px; }
+  .topbar-menu-btn { display: none; }
+
+  /* Content area */
+  .app-main { margin-left: 0 !important; }
+  .app-content {
+    padding: 0.75rem;
+    padding-top: calc(52px + env(safe-area-inset-top, 24px) + 0.75rem);
+    padding-bottom: calc(60px + 1rem);
+  }
+
+  /* Notification panel — full width on mobile */
+  .notification-panel {
+    position: fixed !important; top: calc(52px + env(safe-area-inset-top, 24px)) !important; left: 0 !important; right: 0 !important;
+    width: 100% !important; max-height: calc(100vh - 52px - env(safe-area-inset-top, 24px) - 60px) !important;
+    border-radius: 0 !important; border-left: none; border-right: none;
+  }
+
+  /* Dropdown menu — wider on mobile */
+  .dropdown-menu {
+    position: fixed !important; top: calc(52px + env(safe-area-inset-top, 24px)) !important; right: 0 !important; left: 0 !important;
+    min-width: unset !important; border-radius: 0 !important;
+    border-left: none; border-right: none;
+  }
+
+  /* Avatar smaller */
+  .avatar { width: 30px; height: 30px; font-size: 0.7rem; }
 }
+

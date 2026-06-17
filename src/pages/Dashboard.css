@@ -97,3 +97,16 @@
   .charts-grid { grid-template-columns: 1fr; }
   .page-header { flex-direction: column; }
 }
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .stat-card { padding: 0.85rem; }
+  .stat-value { font-size: var(--text-xl); }
+  .stat-label { font-size: 0.65rem; }
+  .page-header h2 { font-size: var(--text-lg); }
+  .page-header p { font-size: var(--text-xs); }
+  .btn-primary { padding: 0.5rem 1rem; font-size: var(--text-xs); }
+  .timeline-item { padding: 0.85rem; }
+  .timeline-title { font-size: var(--text-sm); }
+  .timeline-excerpt { font-size: var(--text-xs); }
+}

@@ -1,0 +1,11 @@
+{
+  "appId": "com.digiboard.app",
+  "appName": "DigiBoard",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#0a0e1a"
+  }
+}

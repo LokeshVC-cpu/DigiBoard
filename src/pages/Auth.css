@@ -178,3 +178,22 @@
   .auth-right { padding: 1.5rem; }
   .role-picker { flex-direction: column; }
 }
+
+@media (max-width: 480px) {
+  .auth-page { padding-top: env(safe-area-inset-top, 24px); }
+  .auth-left { min-height: 140px; }
+  .auth-left-content { padding: 1.5rem; }
+  .auth-left h2 { font-size: var(--text-xl); margin-bottom: 0.35rem; }
+  .auth-left p { font-size: var(--text-xs); }
+  .auth-left-brand { margin-bottom: 1rem; }
+  .auth-right { padding: 1rem; }
+  .auth-form-container { max-width: 100%; }
+  .auth-form-header h3 { font-size: var(--text-xl); }
+  .auth-form-header { margin-bottom: 1rem; }
+  .quick-login-btns { gap: 0.35rem; }
+  .quick-btn { padding: 0.5rem 0.25rem; }
+  .quick-btn-role { font-size: var(--text-xs); }
+  .form-input, .form-select { padding: 0.6rem 0.85rem; font-size: var(--text-sm); }
+  .auth-submit-btn { padding: 0.7rem; font-size: var(--text-sm); }
+  .auth-divider { margin: 0.75rem 0; }
+}

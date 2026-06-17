@@ -205,3 +205,23 @@
   .modal-overlay { align-items: flex-end; padding: 0; }
   .nb-toolbar { flex-direction: column; }
 }
+
+@media (max-width: 480px) {
+  .notice-grid { gap: 0.6rem; }
+  .notice-card-body { padding: 0.85rem; }
+  .notice-title { font-size: var(--text-sm); }
+  .notice-preview { font-size: var(--text-xs); margin-bottom: 0.5rem; }
+  .notice-card-footer { flex-wrap: wrap; gap: 0.4rem; }
+  .notice-modal-header { padding: 0.75rem 1rem; }
+  .notice-modal-body { padding: 1rem; }
+  .notice-modal-body h2 { font-size: var(--text-lg); }
+  .notice-content { font-size: var(--text-sm); line-height: 1.7; }
+  .nb-search { padding: 0.5rem 0.75rem; }
+  .nb-filter-btn { padding: 0.5rem 0.75rem; font-size: var(--text-xs); }
+  .filter-pills { gap: 0.3rem; }
+  .pill { padding: 0.25rem 0.6rem; font-size: 0.65rem; }
+  .comment-input { border-radius: var(--radius-md); }
+  .reaction-btn { padding: 0.3rem 0.65rem; font-size: var(--text-xs); }
+  .nb-empty { padding: 2rem 1rem; }
+  .nb-empty h3 { font-size: var(--text-lg); }
+}
