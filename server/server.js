@@ -20,6 +20,7 @@ app.use('/api/notices', noticeRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/notifications', require('./routes/notifications'));
+app.use('/api/marks', require('./routes/marks'));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)

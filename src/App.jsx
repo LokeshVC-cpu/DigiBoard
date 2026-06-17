@@ -12,6 +12,7 @@ import NoticeBoard from './pages/NoticeBoard';
 import CreateNotice from './pages/CreateNotice';
 import Profile from './pages/Profile';
 import Timetable from './pages/Timetable';
+import Marks from './pages/Marks';
 
 function PrivateRoute({ children, roles }) {
   const { user, loading } = useAuth();
@@ -40,6 +41,7 @@ function AppRoutes() {
       <Route path="/edit-notice/:id" element={<PrivateRoute roles={['admin', 'faculty']}><CreateNotice /></PrivateRoute>} />
       <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
       <Route path="/timetable" element={<PrivateRoute><Timetable /></PrivateRoute>} />
+      <Route path="/marks" element={<PrivateRoute><Marks /></PrivateRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

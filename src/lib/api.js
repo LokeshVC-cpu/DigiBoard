@@ -149,3 +149,46 @@ export async function markNotificationReadApi(id) {
     method: 'PUT', headers: getAuthHeaders()
   });
 }
+
+// ---- MARKS ----
+export async function getMarksApi(filters = {}) {
+  const queryParams = new URLSearchParams(filters).toString();
+  const res = await fetch(`${API_URL}/marks${queryParams ? `?${queryParams}` : ''}`, { 
+    headers: getAuthHeaders() 
+  });
+  if (!res.ok) throw new Error('Failed to fetch marks');
+  return res.json();
+}
+
+export async function createMarkApi(markData) {
+  const res = await fetch(`${API_URL}/marks`, {
+    method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(markData)
+  });
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to create mark');
+  }
+  return res.json();
+}
+
+export async function updateMarkApi(id, markData) {
+  const res = await fetch(`${API_URL}/marks/${id}`, {
+    method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(markData)
+  });
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to update mark');
+  }
+  return res.json();
+}
+
+export async function deleteMarkApi(id) {
+  const res = await fetch(`${API_URL}/marks/${id}`, {
+    method: 'DELETE', headers: getAuthHeaders()
+  });
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message || 'Failed to delete mark');
+  }
+  return res.json();
+}

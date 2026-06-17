@@ -6,7 +6,7 @@ import { useNotifications } from '../context/NotificationContext';
 import { getInitials, relativeTime, SCHOOLS } from '../lib/utils';
 import {
   LayoutDashboard, ClipboardList, PlusCircle, User, Settings, LogOut,
-  Bell, Search, Menu, X, Sun, Moon, ChevronLeft, CalendarDays, Building2,
+  Bell, Search, Menu, X, Sun, Moon, ChevronLeft, CalendarDays, Building2, Award
 } from 'lucide-react';
 import './Layout.css';
 import UrgentTicker from './UrgentTicker';
@@ -56,6 +56,7 @@ export default function Layout({ children }) {
     { to: '/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', roles: ['admin', 'faculty'] },
     { to: '/notices', icon: <ClipboardList size={20} />, label: 'Notice Board', roles: ['admin', 'faculty', 'student'] },
     { to: '/timetable', icon: <CalendarDays size={20} />, label: 'Timetable', roles: ['admin', 'faculty', 'student'] },
+    { to: '/marks', icon: <Award size={20} />, label: 'Marks', roles: ['admin', 'faculty', 'student'] },
     { to: '/create-notice', icon: <PlusCircle size={20} />, label: 'Create Notice', roles: ['admin', 'faculty'] },
     { to: '/profile', icon: <User size={20} />, label: 'Profile', roles: ['admin', 'faculty', 'student'] },
   ];
